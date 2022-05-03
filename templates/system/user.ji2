@@ -1,0 +1,22 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_user) }}
+  \begin{tabularx}{\textwidth}{|Sl|Sl|Sl|Tl|Tl|>{\nohyphen}SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{login} &
+    \multicolumn{1}{Hc|}{uid} &
+    \multicolumn{1}{Hc|}{group} &
+    \multicolumn{1}{Hc|}{home} &
+    \multicolumn{1}{Hc|}{shell} &
+    \multicolumn{1}{Hc|}{nazwa} \\
+
+{% for user in user_accounts | rejectattr('dn','defined') %}
+    \hline {{ " " }}
+      {{- user['name'] }}{{ " & " }}
+      {{- user['uid'] }}{{ " & " }}
+      {{- user['group'] }}{{ " & " }}
+      {{- user['home'] }}{{ " & " }}
+      {{- user['shell'] }}{{ " & " }}
+      {{- user['comment'] }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}

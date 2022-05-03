@@ -1,0 +1,22 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_group) }}
+  \begin{tabularx}{\textwidth}{|>{\nohyphen}Sl|Sl|SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{nazwa} &
+    \multicolumn{1}{Hc|}{gid} &
+    \multicolumn{1}{Hc|}{członkowie} \\
+
+{% for user_group in user_groups %}
+  {%- set group = namespace(members=[]) %}
+    \hline {{ " " }}
+      {{- user_group['name'] }}{{ " & " }}
+      {{- user_group['gid'] }}{{ " & " }}
+      {%- for user_account in user_accounts | selectattr('groups','defined') %}
+        {%- if user_group['name'] in user_account['groups'] %}
+          {%- set group.members = group.members + [user_account['name']] %}
+        {%- endif %}
+      {%- endfor %}
+      {{- group.members | join(',') }} \\ 
+{% endfor %}
+    \hline
+  \end{tabularx}

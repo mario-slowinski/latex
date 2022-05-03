@@ -1,0 +1,44 @@
+---
+- name: "Save system groups info in {{ latex_system_group['path'] | default(latex_system_group['caption']+'.tex') }}"
+  tags: latex.system.group
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_group['path'] | default(latex_system_group['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_system_group['caption'] }}"
+    block: "{{ lookup('template','system/group.ji2') }}"
+  run_once: true
+
+- name: "Save system users info in {{ latex_system_user['path'] | default(latex_system_user['caption']+'.tex') }}"
+  tags: latex.system.user
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_user['path'] | default(latex_system_user['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_system_user['caption'] }}"
+    block: "{{ lookup('template','system/user.ji2') }}"
+  run_once: true
+
+- name: "Save system sudoers info in {{ latex_system_sudo['path'] | default(latex_system_sudo['caption']+'.tex') }}"
+  tags: latex.system.sudo
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_sudo['path'] | default(latex_system_sudo['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_system_sudo['caption'] }}"
+    block: "{{ lookup('template','system/sudo.ji2') }}"
+  run_once: true
+
+- name: "Save system sudoers info in {{ latex_system_sudo['path'] | default(latex_system_sudo['caption']+'.tex') }}"
+  tags: latex.system.filesystem
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_filesystem['path'] | default(latex_system_filesystem['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_system_filesystem['caption'] }}"
+    block: "{{ lookup('template','system/filesystem.ji2') }}"
+  run_once: true

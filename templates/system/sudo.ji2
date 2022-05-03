@@ -1,0 +1,26 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_sudo) }}
+  \begin{tabularx}{\textwidth}{|>{\nohyphen}Tl|Sl|Sl|Sl|Sl|Sl|>{\nohyphen}SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{plik} &
+    \multicolumn{1}{Hc|}{z} &
+    \multicolumn{1}{Hc|}{host} &
+    \multicolumn{1}{Hc|}{użytkownik} &
+    \multicolumn{1}{Hc|}{grupa} &
+    \multicolumn{1}{Hc|}{hasło} &
+    \multicolumn{1}{Hc|}{polecenia} \\
+
+{% for sudoer in user_sudoers %}
+{% for runa in sudoer['runas'] %}
+    \hline {{ " " }}
+      {{- "/etc/sudoers.d/"+sudoer['file'] }}{{ " & " }}
+      {{- sudoer['for'] | regex_replace('%','\%') }}{{ " & " }}
+      {{- sudoer['hosts'] }}{{ " & " }}
+      {{- runa['user'] }}{{ " & " }}
+      {{- runa['group'] }}{{ " & " }}
+      {{- runa['password']|ternary('tak','nie') }}{{ " & " }}
+      {{- runa['cmd'] }} \\
+{% endfor %}
+{% endfor %}
+    \hline
+  \end{tabularx}
