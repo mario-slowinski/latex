@@ -1,0 +1,18 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_filesystem) }}
+  \begin{tabularx}{\textwidth}{|TX|Tl|Sc|SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{device} &
+    \multicolumn{1}{Hc|}{path} &
+    \multicolumn{1}{Hc|}{fstype} &
+    \multicolumn{1}{Hc|}{options} \\
+
+{% for filesystem in disk_mounts + (ceph_mounts | default([])) %}
+    \hline 
+      {{ filesystem['dev'] | regex_replace(',',', ') }} &
+      {{ filesystem['path'] | regex_replace('_','\_') }} &
+      {{ filesystem['fstype'] }} &
+      {{ filesystem['opts'] | join(', ') | regex_replace('_','\_') | regex_replace('=(/.+),','=\\\path{\\1},') }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}

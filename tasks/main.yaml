@@ -4,3 +4,9 @@
     - latex
     - latex.vmware
   ansible.builtin.import_tasks: vmware.yaml
+
+- name: "LaTeX output for system"
+  tags:
+    - latex
+    - latex.system
+  ansible.builtin.import_tasks: system.yaml
