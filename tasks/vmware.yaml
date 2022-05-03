@@ -19,11 +19,11 @@
   tags: latex.vmware.cluster
   ansible.builtin.blockinfile:
     path: "{{ latex_output }}/{{ latex_vmware_cluster['path'] | default(latex_vmware_cluster['caption']+'.tex') }}"
-#    create: true
+    create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_vmware_cluster['caption'] }}"
-    block: "{{ lookup('template','vmware_cluster.ji2') }}"
+    block: "{{ lookup('template','vmware/cluster.ji2') }}"
   run_once: true
 
 - name: "Save VMware datastore in {{ latex_output }}/{{ latex_vmware_datastore['path'] | default(latex_vmware_datastore['caption']+'.tex') }}"
@@ -34,7 +34,7 @@
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_vmware_datastore['caption'] }}"
-    block: "{{ lookup('template','vmware_datastore.ji2') }}"
+    block: "{{ lookup('template','vmware/datastore.ji2') }}"
   run_once: true
 
 - name: "Save VMware vswitch info in {{ latex_output }}/{{ latex_vmware_vswitch['path'] | default(latex_vmware_vswitch['caption']+'.tex') }}"
@@ -45,7 +45,7 @@
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_vmware_vswitch['caption'] }}"
-    block: "{{ lookup('template','vmware_vswitch.ji2') }}"
+    block: "{{ lookup('template','vmware/vswitch.ji2') }}"
   run_once: true
 
 - name: "Save VMware guest hardware info in {{ latex_output }}/{{ latex_vmware_guest_hardware['path'] | default(latex_vmware_guest_hardware['caption']+'.tex') }}"
@@ -58,7 +58,7 @@
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_vmware_guest_hardware['caption'] }}"
-    block: "{{ lookup('template','vmware_guest_hardware.ji2') }}"
+    block: "{{ lookup('template','vmware/guest_hardware.ji2') }}"
   run_once: true
 
 - name: "Save VMware guest network info in {{ latex_output }}/{{ latex_vmware_guest_network['path'] | default(latex_vmware_guest_network['caption']+'.tex') }}"
@@ -71,5 +71,5 @@
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{longtable} % {{ latex_vmware_guest_network['caption'] }}"
-    block: "{{ lookup('template','vmware_guest_network.ji2') }}"
+    block: "{{ lookup('template','vmware/guest_network.ji2') }}"
   run_once: true
