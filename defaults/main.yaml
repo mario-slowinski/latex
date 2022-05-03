@@ -1,5 +1,34 @@
 ---
-latex_output: /tmp
-
 latex_vmware_cluster:
   caption: vmware-cluster
+
+latex_vmware_datastore:
+  caption: vmware-datastore
+
+latex_vmware_vswitch:
+  caption: vmware-vswitch
+
+latex_vmware_guest_network:
+  caption: vmware-guest-network
+
+latex_vmware_guest_hardware:
+  caption: vmware-guest-hardware
+
+
+latex_system_group:
+  caption: vmware-system-group
+
+latex_system_user:
+  caption: vmware-system-user
+
+latex_system_sudo:
+  caption: vmware-system-sudo
+
+latex_system_filesystem:
+  caption: vmware-system-filesystem
+
+latex_system_logrotate:
+  caption: vmware-system-logrotate
+
+latex_system_sshd:
+  caption: vmware-system-sshd
