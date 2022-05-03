@@ -1,0 +1,7 @@
+{% macro format(_object) -%}
+{% set short = '' %}
+{% if _object['short'] is defined %}
+  {%- set short = '[' + _object['short'] + ']' %}
+{% endif %}
+  \caption{{ short }}{{'{'}}{{ _object['caption'] }}{{ '}'}}
+{%- endmacro %}

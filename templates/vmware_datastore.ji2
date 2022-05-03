@@ -1,0 +1,16 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_vmware_datastore) }}
+  \begin{tabularx}{\textwidth}{|Sc|>{\nohyphen}SX|Sl|}
+    \hline
+    \multicolumn{1}{|Hc|}{dysk} &
+    \multicolumn{1}{Hc|}{datastore} &
+    \multicolumn{1}{Hc|}{vSAN policy} \\
+
+{% for vmware_disk in vmware_disks %}
+{% if vmware_storagepolicies['disk'][loop.index0] is defined %}
+  {%- set vmware_storagepolicy = vmware_storagepolicies['disk'][loop.index0]['policy'][12:] %}
+{% endif %}
+    \hline {{ loop.index0 }} & {{ vmware_disk['datastore'] }} & {{ vmware_storagepolicy | default ('') }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}

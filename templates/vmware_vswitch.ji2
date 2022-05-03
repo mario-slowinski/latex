@@ -1,0 +1,27 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_vmware_vswitch) }}
+  \begin{tabularx}{\textwidth}{|>{\nohyphen}SX|Sl|Sl|Sl|Sl|}
+    \hline
+    \multicolumn{1}{|Hc|}{vswitch} &
+    \multicolumn{1}{Hc|}{portgroup} &
+    \multicolumn{1}{Hc|}{network} &
+    \multicolumn{1}{Hc|}{gateway} &
+    \multicolumn{1}{Hc|}{routes} \\
+
+{% for vmware_network in vmware_networks %}
+  {%- if vmware_network['ip'] is defined %}
+    {%- set ip_address = vmware_network['ip']+'/'+vmware_network['netmask'] %}
+    {%- set ip_network = ip_address | ansible.utils.ipaddr('network/prefix') %}
+  {%- endif %}
+    \hline {{ vmware_network['dvswitch_name'] }} & {{ vmware_network['name'] }} & {{ ip_network | default('') }} & {{ vmware_network['gateway'] | default('') }}
+  {%- if vmware_network['routes'] is defined %}
+    {%- for route in vmware_network['routes'] %}
+      {{- '& to: ' + route['to'] + " \\\\" }}
+      {{ '& & & & via: ' + route['via'] + " \\\\\n" }}
+    {%- endfor %}
+  {%- else %}
+  {{- "& \\\\\n" }}
+  {%- endif %}
+{% endfor %}
+    \hline
+  \end{tabularx}

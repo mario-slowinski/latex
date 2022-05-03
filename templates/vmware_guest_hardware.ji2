@@ -1,0 +1,19 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_vmware_guest_hardware) }}
+  \begin{tabularx}{\textwidth}{|>{\nohyphen}SX|Sr|Sr|Sr|Sr|}
+    \hline
+    \multicolumn{1}{|Hc|}{nazwa} &
+    \multicolumn{1}{Hc|}{vCPU} &
+    \multicolumn{1}{Hc|}{RAM [GB]} &
+    \multicolumn{1}{Hc|}{disk0 [GB]} &
+    \multicolumn{1}{Hc|}{disk1 [GB]} \\
+
+{% for host in ansible_play_batch %}
+    \hline {{ hostvars[host]['vmware_guest']['instance']['hw_name'] }}{{ " & " }}
+      {{- hostvars[host]['vmware_guest']['instance']['hw_processor_count'] }}{{ " & " }}
+      {{- (hostvars[host]['vmware_guest']['instance']['hw_memtotal_mb'] / 1024) | int }}{{ " & " }}
+      {{- (hostvars[host]['vmware_disk']['guest_disk_info']['0']['capacity_in_bytes']/1024/1024/1024) | int }}{{ " & " }}
+      {{- (hostvars[host]['vmware_disk']['guest_disk_info']['1']['capacity_in_bytes']/1024/1024/1024) | int }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}

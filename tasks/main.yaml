@@ -1,0 +1,6 @@
+---
+- name: "LaTeX output for VMware"
+  tags:
+    - latex
+    - latex.vmware
+  ansible.builtin.import_tasks: vmware.yaml

@@ -1,0 +1,5 @@
+---
+latex_output: /tmp
+
+latex_vmware_cluster:
+  caption: vmware-cluster
