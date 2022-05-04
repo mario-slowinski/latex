@@ -10,3 +10,9 @@
     - latex
     - latex.system
   ansible.builtin.import_tasks: system.yaml
+
+- name: "LaTeX output for docker"
+  tags:
+    - latex
+    - latex.docker
+  ansible.builtin.import_tasks: docker.yaml
