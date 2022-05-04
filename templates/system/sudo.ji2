@@ -12,8 +12,8 @@
 
 {% for sudoer in user_sudoers %}
 {% for runa in sudoer['runas'] %}
-    \hline {{ " " }}
-      {{- "/etc/sudoers.d/"+sudoer['file'] }}{{ " & " }}
+    \hline {{ "" }}
+      {{- "\path{/etc/sudoers.d/"+sudoer['file'] }}{{ "} & " }}
       {{- sudoer['for'] | regex_replace('%','\%') }}{{ " & " }}
       {{- sudoer['hosts'] }}{{ " & " }}
       {{- runa['user'] }}{{ " & " }}

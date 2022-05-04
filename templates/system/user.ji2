@@ -14,7 +14,7 @@
       {{- user['name'] }}{{ " & " }}
       {{- user['uid'] }}{{ " & " }}
       {{- user['group'] }}{{ " & " }}
-      {{- user['home'] }}{{ " & " }}
+      {{- "\path{" }}{{- user['home'] }}{{ "} & " }}
       {{- user['shell'] }}{{ " & " }}
       {{- user['comment'] }} \\
 {% endfor %}
