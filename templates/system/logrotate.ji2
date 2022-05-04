@@ -1,0 +1,19 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_logrotate) }}
+  \begin{tabularx}{\textwidth}{|TX|TX|Sl|}
+    \hline
+    \multicolumn{1}{|Hc|}{plik} &
+    \multicolumn{1}{Hc|}{log} &
+    \multicolumn{1}{Hc|}{opcje} \\
+
+{% for logrotate_log in logrotate_logs | subelements('logs') %}
+    \hline 
+      \path{/etc/logrotate.d/{{ logrotate_log[0]['file'] }}} &
+        {{ "\path{" }}{{ logrotate_log[1]['paths'] | join(',') }}} & 
+        {{ (logrotate_log[1]['options'] + logrotate_log[0]['globals'] | default([]))[0] }} {{ "\\\\\n" }}
+    {%- for option in (logrotate_log[1]['options'] + logrotate_log[0]['globals'] | default([]))[1:] %}
+      {{ '& & ' + option | regex_replace('%','\%') + " \\\\\n" }}
+    {%- endfor %}
+{% endfor %}
+    \hline
+  \end{tabularx}
