@@ -7,13 +7,13 @@
   ansible.builtin.import_role:
     name: vmware
     tasks_from: guest_info.yaml
-#- name: "Import guest disk info task from vmware role."
-#  tags:
-#    - latex.vmware.guest
-#    - latex.vmware.guest.hardware
-#  ansible.builtin.import_role:
-#    name: vmware
-#    tasks_from: guest_disk_info.yaml
+- name: "Import guest disk info task from vmware role."
+  tags:
+    - latex.vmware.guest
+    - latex.vmware.guest.hardware
+  ansible.builtin.import_role:
+    name: vmware
+    tasks_from: guest_disk_info.yaml
 
 - name: "Save VMware cluster info in {{ latex_vmware_cluster['path'] | default(latex_vmware_cluster['caption']+'.tex') }}"
   tags: latex.vmware.cluster
