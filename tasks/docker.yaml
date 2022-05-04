@@ -1,0 +1,48 @@
+---
+- name: "Get info about docker stacks"
+  tags:
+    - latex.docker.stack
+    - latex.docker.service
+  community.docker.docker_stack_info:
+  connection: ssh
+  register: docker_stack
+
+- name: "Get info about docker stack tasks"
+  tags:
+    - latex.docker.service
+  community.docker.docker_stack_task_info:
+    name: "{{ item }}"
+  loop: "{{ docker_stack['results'] | map(attribute='Name') }}"
+  connection: ssh
+  register: docker_stack_task
+
+- name: "Get info about docker services"
+  tags:
+    - latex.docker.service
+  community.docker.docker_swarm_service_info:
+    name: "{{ item }}"
+  loop: "{{ docker_stack_task['results'] | map(attribute='results') | flatten | map(attribute='Name')  | map('regex_replace','\\.\\w+') | unique }}"
+  connection: ssh
+  register: docker_service
+
+- name: "Save docker stack info in {{ latex_docker_stack['path'] | default(latex_docker_stack['caption']+'.tex') }}"
+  tags: latex.docker.stack
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_group['path'] | default(latex_docker_stack['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_docker_stack['caption'] }}"
+    block: "{{ lookup('template','docker/stack.ji2') }}"
+  run_once: true
+
+- name: "Save docker service info in {{ latex_docker_service['path'] | default(latex_docker_service['caption']+'.tex') }}"
+  tags: latex.docker.service
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_group['path'] | default(latex_docker_service['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_docker_service['caption'] }}"
+    block: "{{ lookup('template','docker/service.ji2') }}"
+  run_once: true

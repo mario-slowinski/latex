@@ -1,0 +1,2 @@
+---
+latex_docker_service_query: "[].{stack:item,services:results[].Name}"
