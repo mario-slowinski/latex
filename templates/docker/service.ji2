@@ -1,21 +1,20 @@
 {% import 'caption.ji2' as caption %}
-{{ caption.format(latex_docker_stack) }}
-  \begin{tabularx}{\textwidth}{|SX|Sc|Sr|Sl|Tl|}
+{{ caption.format(latex_docker_service) }}
+  \begin{tabularx}{\textwidth}{|Sl|Sc|Sr|SX|Tl|}
     \hline
-    \multicolumn{1}{|Hc|}{nazwa} &
+    \multicolumn{1}{|Hc|}{serwis} &
     \multicolumn{1}{Hc|}{tryb} &
     \multicolumn{1}{Hc|}{repliki} &
     \multicolumn{1}{Hc|}{obraz} &
     \multicolumn{1}{Hc|}{porty} \\
 
 {% for service in docker_service['results'] | map(attribute='service') | map(attribute='Spec') %}
-    \hline {{ " " }}
-      {{- service['Name'] }}{{ " & " }}
+    \hline {{ "" }}
+      {{- service['Name'] | regex_replace('_','\_') }}{{ " & " }}
       {{- lookup('dict',service['Mode'])['key'] }}{{ " & " }}
       {{- lookup('dict',service['Mode'])['value']['Replicas'] | default('') }}{{ " & " }}
-      {{- service['TaskTemplate']['ContainerSpec']['Image'] | regex_replace('@.+') }}{{ " & " }}
-      {#{{- service['EndpointSpec'] | flatten | selectattr('Ports','defined') | map(attribute='Ports') | map(attribute='PublishedPort') | join(', ') }} \\ #}
-      {{- service['EndpointSpec'] | selectattr('Mode','defined') }} \\ 
+      {{- "\path{" + service['TaskTemplate']['ContainerSpec']['Image'] | regex_replace('@.+') }}{{ "} & " }}
+      {{- service['EndpointSpec']['Ports'] | default('') | map(attribute='PublishedPort') | join(',') }} \\
 {% endfor %}
     \hline
   \end{tabularx}
