@@ -41,7 +41,6 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_filesystem['caption'] }}"
     block: "{{ lookup('template','system/filesystem.ji2') }}"
-  run_once: true
 
 - name: "Save system logrotate info in {{ latex_system_logrotate['path'] | default(latex_system_logrotate['caption']+'.tex') }}"
   tags: latex.system.logrotate
