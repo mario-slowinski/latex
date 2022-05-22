@@ -10,7 +10,7 @@
     \multicolumn{1}{Hc|}{nazwa} \\
 
 {% for user in user_accounts | rejectattr('dn','defined') %}
-    \hline {{ " " }}
+    \hline {{ "" }}
       {{- user['name'] }}{{ " & " }}
       {{- user['uid'] }}{{ " & " }}
       {{- user['group'] }}{{ " & " }}
