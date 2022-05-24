@@ -7,6 +7,6 @@
     \endhead
 
 {% for pkg in software_info['results'] %}
-    \hline {{ pkg['stdout'].split('\t')[0] }}{{ " & " }}{{ pkg['stdout'].split('\t')[1] | regex_replace('~','\\\\textasciitilde ') }} \\
+    \hline {{ pkg['item'] }}{{ " & " }}{{ pkg['stdout'] | regex_replace('~','\\\\textasciitilde ') }} \\
 {% endfor %}
     \hline
