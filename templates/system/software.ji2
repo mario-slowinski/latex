@@ -1,0 +1,12 @@
+  {|>{\nohyphen}Tl|Tl|}
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_system_software) }} \\
+    \hline
+    \multicolumn{1}{|Hc|}{nazwa} &
+    \multicolumn{1}{Hc|}{wersja} \\
+    \endhead
+
+{% for pkg in software_info['results'] %}
+    \hline {{ pkg['stdout'].split('\t')[0] }}{{ " & " }}{{ pkg['stdout'].split('\t')[1] | regex_replace('~','\\\\textasciitilde ') }} \\
+{% endfor %}
+    \hline

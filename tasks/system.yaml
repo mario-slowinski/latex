@@ -1,4 +1,11 @@
 ---
+- name: "Include info task from software role."
+  tags:
+    - latex.system.software
+  ansible.builtin.include_role:
+    name: software
+
+
 - name: "Save system groups info in {{ latex_system_group['path'] | default(latex_system_group['caption']+'.tex') }}"
   tags: latex.system.group
   ansible.builtin.blockinfile:
@@ -8,7 +15,7 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_group['caption'] }}"
     block: "{{ lookup('template','system/group.ji2') }}"
-  run_once: true
+  connection: local
 
 - name: "Save system users info in {{ latex_system_user['path'] | default(latex_system_user['caption']+'.tex') }}"
   tags: latex.system.user
@@ -19,7 +26,7 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_user['caption'] }}"
     block: "{{ lookup('template','system/user.ji2') }}"
-  run_once: true
+  connection: local
 
 - name: "Save system sudoers info in {{ latex_system_sudo['path'] | default(latex_system_sudo['caption']+'.tex') }}"
   tags: latex.system.sudo
@@ -30,7 +37,7 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_sudo['caption'] }}"
     block: "{{ lookup('template','system/sudo.ji2') }}"
-  run_once: true
+  connection: local
 
 - name: "Save system filesystem info in {{ latex_system_filesystem['path'] | default(latex_system_filesystem['caption']+'.tex') }}"
   tags: latex.system.filesystem
@@ -41,6 +48,7 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_filesystem['caption'] }}"
     block: "{{ lookup('template','system/filesystem.ji2') }}"
+  connection: local
 
 - name: "Save system logrotate info in {{ latex_system_logrotate['path'] | default(latex_system_logrotate['caption']+'.tex') }}"
   tags: latex.system.logrotate
@@ -51,4 +59,15 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_system_logrotate['caption'] }}"
     block: "{{ lookup('template','system/logrotate.ji2') }}"
-  run_once: true
+  connection: local
+
+- name: "Save system software info in {{ latex_system_software['path'] | default(latex_system_software['caption']+'.tex') }}"
+  tags: latex.system.software
+  ansible.builtin.blockinfile:
+    path: "{{ latex_system_software['path'] | default(latex_system_software['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{longtable} % {{ latex_system_software['caption'] }}"
+    block: "{{ lookup('template','system/software.ji2') }}"
+  connection: local
