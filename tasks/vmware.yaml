@@ -15,6 +15,7 @@
     name: vmware
     tasks_from: guest_disk_info.yaml
 
+
 - name: "Save VMware cluster info in {{ latex_vmware_cluster['path'] | default(latex_vmware_cluster['caption']+'.tex') }}"
   tags: latex.vmware.cluster
   ansible.builtin.blockinfile:
@@ -22,9 +23,10 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_vmware_cluster['caption'] }}"
+    marker: "{mark}{table} % {{ latex_vmware_cluster['marker'] | default(latex_vmware_cluster['caption']) }}"
     block: "{{ lookup('template','vmware/cluster.ji2') }}"
   run_once: true
+  console: local
 
 - name: "Save VMware datastore in {{ latex_vmware_datastore['path'] | default(latex_vmware_datastore['caption']+'.tex') }}"
   tags: latex.vmware.datastore
@@ -33,9 +35,10 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_vmware_datastore['caption'] }}"
+    marker: "{mark}{table} % {{ latex_vmware_datastore['marker'] | default(latex_vmware_datastore['caption']) }}"
     block: "{{ lookup('template','vmware/datastore.ji2') }}"
   run_once: true
+  console: local
 
 - name: "Save VMware vswitch info in {{ latex_vmware_vswitch['path'] | default(latex_vmware_vswitch['caption']+'.tex') }}"
   tags: latex.vmware.vswitch
@@ -44,9 +47,10 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_vmware_vswitch['caption'] }}"
+    marker: "{mark}{table} % {{ latex_vmware_vswitch['marker'] | default(latex_vmware_vswitch['caption']) }}"
     block: "{{ lookup('template','vmware/vswitch.ji2') }}"
   run_once: true
+  console: local
 
 - name: "Save VMware guest hardware info in {{ latex_vmware_guest_hardware['path'] | default(latex_vmware_guest_hardware['caption']+'.tex') }}"
   tags:
@@ -57,9 +61,10 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_vmware_guest_hardware['caption'] }}"
+    marker: "{mark}{table} % {{ latex_vmware_guest_hardware['marker'] | default(latex_vmware_guest_hardware['caption']) }}"
     block: "{{ lookup('template','vmware/guest_hardware.ji2') }}"
   run_once: true
+  console: local
 
 - name: "Save VMware guest network info in {{ latex_vmware_guest_network['path'] | default(latex_vmware_guest_network['caption']+'.tex') }}"
   tags:
@@ -70,6 +75,7 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{longtable} % {{ latex_vmware_guest_network['caption'] }}"
+    marker: "{mark}{longtable} % {{ latex_vmware_guest_network['marker'] | default(latex_vmware_guest_network['caption']) }}"
     block: "{{ lookup('template','vmware/guest_network.ji2') }}"
   run_once: true
+  console: local
