@@ -2,7 +2,7 @@
 {{ caption.format(latex_vmware_cluster) }}
   \begin{tabularx}{\textwidth}{|Hl|>{\nohyphen}SX|}
     \hline datacenter & {{ vmware_datacenter }} \\
-    \hline cluster & {{ vmware_cluster }} \\
+    \hline cluster & {{ vmware_clusters | join(',') }} \\
     \hline folder & {{ vmware_folders[0]['name'] }} \\
     \hline
   \end{tabularx}
