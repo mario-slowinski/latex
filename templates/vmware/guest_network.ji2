@@ -10,7 +10,7 @@
 
 {% for host in ansible_play_batch %}
 {% for eth in hostvars[host]['vmware_guest']['instance']['hw_interfaces'] %}
-    \hline {{ " " }}
+    \hline {{ "" }}
       {{- hostvars[host]['inventory_hostname'] }}{{ " & " }}
       {{- loop.index0 }}{{ " & " }}
       {{- hostvars[host]['vmware_guest']['instance']['hw_'+eth]['macaddress'] }}{{ " & " }}
