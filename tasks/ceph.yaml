@@ -6,6 +6,13 @@
   run_once: true
   register: ceph_mon
 
+- name: "Get ceph osd metadata"
+  tags: latex.ceph.osd
+  ansible.builtin.command: ceph osd metadata
+  become: true
+  run_once: true
+  register: ceph_osd
+
 - tags: latex.ceph.mon
   debug:
     msg: "{{ ceph_mon['stdout'] }}"
@@ -18,7 +25,19 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_mon['caption'] }}"
+    marker: "{mark}{table} % {{ latex_ceph_mon['marker'] | default(latex_ceph_mon['caption']) }}"
     block: "{{ lookup('template','ceph/mon.ji2') }}"
+  run_once: true
+  connection: local
+
+- name: "Save ceph osd info in {{ latex_ceph_osd['path'] | default(latex_ceph_osd['caption']+'.tex') }}"
+  tags: latex.ceph.osd
+  ansible.builtin.blockinfile:
+    path: "{{ latex_ceph_osd['path'] | default(latex_ceph_osd['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_ceph_osd['marker'] | default(latex_ceph_osd['caption']) }}"
+    block: "{{ lookup('template','ceph/osd.ji2') }}"
   run_once: true
   connection: local
