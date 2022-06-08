@@ -16,3 +16,9 @@
     - latex
     - latex.docker
   ansible.builtin.import_tasks: docker.yaml
+
+- name: "LaTeX output for ceph"
+  tags:
+    - latex
+    - latex.ceph
+  ansible.builtin.import_tasks: ceph.yaml
