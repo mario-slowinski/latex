@@ -1,0 +1,13 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_mon) }}
+  \begin{tabularx}{\textwidth}{|Sl|Sl|>{\nohyphen}SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{host} &
+    \multicolumn{1}{Hc|}{version} &
+    \multicolumn{1}{Hc|}{addresses} \\
+
+{% for mon in ceph_mon['stdout'] | from_json %}
+    \hline {{ mon['hostname'] }}{{ " & " }}{{ mon['ceph_version_short'] }}{{ " & " }}{{ mon['addrs'] }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}
