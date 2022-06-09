@@ -1,22 +1,12 @@
 ---
-- name: "Get ceph mon metadata"
-  tags: latex.ceph.mon
-  ansible.builtin.command: ceph mon metadata
-  become: true
-  run_once: true
-  register: ceph_mon
-
-- name: "Get ceph osd metadata"
-  tags: latex.ceph.osd
-  ansible.builtin.command: ceph osd metadata
-  become: true
-  run_once: true
-  register: ceph_osd
-
-- tags: latex.ceph.mon
-  debug:
-    msg: "{{ ceph_mon['stdout'] }}"
-  run_once: true
+- name: "Include info task from ceph role."
+  tags:
+    - latex.ceph.mon
+    - latex.ceph.osd
+    - latex.ceph.mds
+  ansible.builtin.include_role:
+    name: ceph
+    tasks_from: info.yaml
 
 - name: "Save ceph mon info in {{ latex_ceph_mon['path'] | default(latex_ceph_mon['caption']+'.tex') }}"
   tags: latex.ceph.mon
