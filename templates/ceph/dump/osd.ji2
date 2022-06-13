@@ -1,21 +1,22 @@
 {% import 'caption.ji2' as caption %}
 {{ caption.format(latex_ceph_dump_osd) }}
-  \begin{tabularx}{\textwidth}{|Sc|SX|Sc|Sc|Sr|Sr|}
+  \begin{tabularx}{\textwidth}{|Sc|SX|Sr|Sr|Sr|}
     \hline
     \multicolumn{1}{|Hc|}{id} &
-    \multicolumn{1}{Hc|}{name} &
-    \multicolumn{1}{Hc|}{type} &
-    \multicolumn{1}{Hc|}{size} &
-    \multicolumn{1}{Hc|}{min_size} \\
-    \hline
+    \multicolumn{1}{Hc|}{class} &
+    \multicolumn{1}{Hc|}{weight} &
+    \multicolumn{1}{Hc|}{reweight} &
+    \multicolumn{1}{Hc|}{size [GiB]} \\
 
-{% for pool in ceph_dump_osd['stdout']['pools'] | from_json %}
-    \hline
-      {{ pool['pool'] }} &
-      {{ pool['pool_name'] }} &
-      {{ pool['type'] }} &
-      {{ pool['size'] }} &
-      {{ pool['min_size'] }} &
+{% for osd in ceph_dump_osd['stdout'] | from_json | json_query('nodes') %}
+    \hline {{ "" }}
+      {{- osd['id'] }}{{ " & " }}
+      {{- osd['device_class'] }}{{ " & " }}
+      {{- osd['crush_weight'] }}{{ " & " }}
+      {{- osd['reweight'] }}{{ " & " }}
+      {{- '%d' | format(osd['kb']/1024/1024) }} \\
 {% endfor %}
+    \hline {{ "\multicolumn{4}{|Sr|}{\\textit{Total:}} & " }}
+      {{- "\\textbf{" }}{{- '%d' | format(ceph_dump_osd['stdout'] | from_json | json_query('summary.total_kb')/1024/1024) }}{{ "}" }} \\
     \hline
   \end{tabularx}
