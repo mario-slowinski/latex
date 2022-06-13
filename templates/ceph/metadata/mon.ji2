@@ -1,0 +1,16 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_metadata_mon) }}
+  \begin{tabularx}{\textwidth}{|Sl|TX|}
+    \hline
+    \multicolumn{1}{|Hc|}{host} &
+    \multicolumn{1}{Hc|}{address} \\
+
+{% for mon in ceph_metadata_mon['stdout'] | from_json %}
+    {%- set addrs = mon['addrs'][1:-1].split(',') %}
+    \hline
+      {{ mon['hostname'] }} &
+      {{ addrs[0] | regex_replace('/.*') }} \\
+      & {{ addrs[1] | regex_replace('/.*') }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}
