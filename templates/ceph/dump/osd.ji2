@@ -1,0 +1,21 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_dump_osd) }}
+  \begin{tabularx}{\textwidth}{|Sc|SX|Sc|Sc|Sr|Sr|}
+    \hline
+    \multicolumn{1}{|Hc|}{id} &
+    \multicolumn{1}{Hc|}{name} &
+    \multicolumn{1}{Hc|}{type} &
+    \multicolumn{1}{Hc|}{size} &
+    \multicolumn{1}{Hc|}{min_size} \\
+    \hline
+
+{% for pool in ceph_dump_osd['stdout']['pools'] | from_json %}
+    \hline
+      {{ pool['pool'] }} &
+      {{ pool['pool_name'] }} &
+      {{ pool['type'] }} &
+      {{ pool['size'] }} &
+      {{ pool['min_size'] }} &
+{% endfor %}
+    \hline
+  \end{tabularx}
