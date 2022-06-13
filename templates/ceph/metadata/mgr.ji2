@@ -1,0 +1,14 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_metadata_mgr) }}
+  \begin{tabularx}{\textwidth}{|Sl|TX|}
+    \hline
+    \multicolumn{1}{|Hc|}{host} &
+    \multicolumn{1}{Hc|}{address} \\
+
+{% for mgr in ceph_metadata_mgr['stdout'] | from_json %}
+    \hline
+      {{ mgr['hostname'] }} &
+      {{ mgr['addrs'] | regex_replace('/.*') }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}
