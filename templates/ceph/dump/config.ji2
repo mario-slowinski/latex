@@ -1,0 +1,20 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_dump_config) }}
+  \begin{tabularx}{\textwidth}{|Hl|TX|}
+    \hline
+      version &
+      {{ ceph_dump_version['stdout'].split(' ')[2:] | join(' ') }} \\
+    \hline
+      fsid &
+      {{ ceph_dump_fsid['stdout'] }} \\
+    \hline
+      image &
+      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','container_image') | map(attribute='value') | first }} \\
+    \hline
+      public network &
+      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','public_network') | map(attribute='value') | first }} \\
+    \hline
+      cluster network &
+      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','cluster_network') | map(attribute='value') | first }} \\
+    \hline
+  \end{tabularx}
