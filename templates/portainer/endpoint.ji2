@@ -1,3 +1,8 @@
+{% set endpoint_type = [ "", "", "agent" ] %}
+{% set ns = namespace(portainer_tags={}) %}
+{% for portainer_tag in portainer_tag_list['json'] %}
+  {%- set ns.portainer_tags = ns.portainer_tags | combine({portainer_tag['ID']:portainer_tag['Name']}) %}
+{% endfor %}
   {|>{\nohyphen}Sl|Sc|Sl|Sl|Sl|}
 {% import 'caption.ji2' as caption %}
 {{ caption.format(latex_portainer_endpoint) }} \\
@@ -9,12 +14,12 @@
     \multicolumn{1}{Hc|}{tags} \\
     \endhead
 
-{% for endpoint in portainer_endpoints['json'] %}
-    \hline {{ "" }
+{% for endpoint in portainer_endpoint_list['json'] | sort(attribute='Name') %}
+    \hline {{ "" }}
     {{- endpoint['Name'] }}{{ " & " }}
-    {{- endpoint['Type'] }}{{ " & " }}
+    {{- endpoint_type[endpoint['Type']|int] }}{{ " & " }}
     {{- endpoint['URL'] }}{{ " & " }}
     {{- endpoint['GroupId'] }}{{ " & " }}
-    {{- endpoint['Tags'] }} \\
+    {{- endpoint['TagIds'] | map('extract',ns.portainer_tags) | join(',') }} \\
 {% endfor %}
     \hline
