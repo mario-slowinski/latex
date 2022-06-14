@@ -22,3 +22,9 @@
     - latex
     - latex.ceph
   ansible.builtin.import_tasks: ceph.yaml
+
+- name: "LaTeX output for portainer"
+  tags:
+    - latex
+    - latex.portainer
+  ansible.builtin.import_tasks: portainer.yaml
