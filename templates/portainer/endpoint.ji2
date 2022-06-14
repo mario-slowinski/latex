@@ -1,0 +1,20 @@
+  {|>{\nohyphen}Sl|Sc|Sl|Sl|Sl|}
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_portainer_endpoint) }} \\
+    \hline
+    \multicolumn{1}{|Hc|}{name} &
+    \multicolumn{1}{|Hc|}{type} &
+    \multicolumn{1}{|Hc|}{url} &
+    \multicolumn{1}{|Hc|}{group} &
+    \multicolumn{1}{Hc|}{tags} \\
+    \endhead
+
+{% for endpoint in portainer_endpoints['json'] %}
+    \hline {{ "" }
+    {{- endpoint['Name'] }}{{ " & " }}
+    {{- endpoint['Type'] }}{{ " & " }}
+    {{- endpoint['URL'] }}{{ " & " }}
+    {{- endpoint['GroupId'] }}{{ " & " }}
+    {{- endpoint['Tags'] }} \\
+{% endfor %}
+    \hline

@@ -1,0 +1,32 @@
+---
+- name: "Include endpoint_list task from portainer role."
+  tags:
+    - latex.portainer.endpoint
+    - latex.portainer
+  ansible.builtin.include_role:
+    name: portainer
+    tasks_from: endpoint_list.yaml
+    apply:
+      tags:
+        - always
+
+
+- name: debug
+  tags:
+    - latex.portainer.endpoint
+  debug:
+    msg: "{{ portainer_endpoints }}"
+  run_once: true
+
+- name: "Save portainer endpoint info in {{ latex_portainer_endpoint['path'] | default(latex_portainer_endpoint['caption']+'.tex') }}"
+  tags:
+    - latex.portainer.endpoint
+  ansible.builtin.blockinfile:
+    path: "{{ latex_portainer_endpoint['path'] | default(latex_portainer_endpoint['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_portainer_endpoint['marker'] | default(latex_portainer_endpoint['caption']) }}"
+    block: "{{ lookup('template','portainer/endpoint.ji2') }}"
+  run_once: true
+  delegate_to: localhost
