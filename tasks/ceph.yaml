@@ -2,6 +2,7 @@
 - name: "Include config dump task from ceph role."
   tags:
     - latex.ceph.dump.config
+    - latex.ceph.dump.pool
     - latex.ceph.dump.osd
     - latex.ceph.dump
     - latex.ceph
