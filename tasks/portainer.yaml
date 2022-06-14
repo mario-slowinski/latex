@@ -1,22 +1,21 @@
 ---
-- name: "Include endpoint_list task from portainer role."
+- name: "Import tag_list task from portainer role."
+  tags:
+    - latex.portainer.tag
+    - latex.portainer.endpoint
+    - latex.portainer
+  ansible.builtin.import_role:
+    name: portainer
+    tasks_from: tag_list.yaml
+
+- name: "Import endpoint_list task from portainer role."
   tags:
     - latex.portainer.endpoint
     - latex.portainer
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: portainer
     tasks_from: endpoint_list.yaml
-    apply:
-      tags:
-        - always
 
-
-- name: debug
-  tags:
-    - latex.portainer.endpoint
-  debug:
-    msg: "{{ portainer_endpoints }}"
-  run_once: true
 
 - name: "Save portainer endpoint info in {{ latex_portainer_endpoint['path'] | default(latex_portainer_endpoint['caption']+'.tex') }}"
   tags:
