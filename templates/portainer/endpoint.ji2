@@ -1,16 +1,19 @@
-{% set endpoint_type = [ "", "", "agent" ] %}
-{% set ns = namespace(portainer_tags={}) %}
+{% set endpoint_type = [ "", "local", "agent", "azure", "kubernetes" ] %}
+{% set ns = namespace(portainer_tags={}, portainer_endpoint_groups={}) %}
 {% for portainer_tag in portainer_tag_list['json'] %}
   {%- set ns.portainer_tags = ns.portainer_tags | combine({portainer_tag['ID']:portainer_tag['Name']}) %}
 {% endfor %}
-  {|>{\nohyphen}Sl|Sc|Sl|Sl|Sl|}
+{% for portainer_endpoint_group in portainer_endpoint_group_list['json'] %}
+  {%- set ns.portainer_endpoint_groups = ns.portainer_endpoint_groups | combine({portainer_endpoint_group['Id']:portainer_endpoint_group['Name']}) %}
+{% endfor %}
+  {|>{\nohyphen}Sl|Sc|Tl|Sl|Sl|}
 {% import 'caption.ji2' as caption %}
 {{ caption.format(latex_portainer_endpoint) }} \\
     \hline
     \multicolumn{1}{|Hc|}{name} &
-    \multicolumn{1}{|Hc|}{type} &
-    \multicolumn{1}{|Hc|}{url} &
-    \multicolumn{1}{|Hc|}{group} &
+    \multicolumn{1}{Hc|}{type} &
+    \multicolumn{1}{Hc|}{url} &
+    \multicolumn{1}{Hc|}{group} &
     \multicolumn{1}{Hc|}{tags} \\
     \endhead
 
@@ -19,7 +22,7 @@
     {{- endpoint['Name'] }}{{ " & " }}
     {{- endpoint_type[endpoint['Type']|int] }}{{ " & " }}
     {{- endpoint['URL'] }}{{ " & " }}
-    {{- endpoint['GroupId'] }}{{ " & " }}
-    {{- endpoint['TagIds'] | map('extract',ns.portainer_tags) | join(',') }} \\
+    {{- [endpoint['GroupId']] | map('extract',ns.portainer_endpoint_groups) | first }}{{ " & " }}
+    {{- endpoint['TagIds'] | map('extract',ns.portainer_tags) | join(' ') }} \\
 {% endfor %}
     \hline
