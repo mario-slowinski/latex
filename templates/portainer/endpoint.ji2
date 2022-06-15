@@ -6,7 +6,7 @@
 {% for portainer_endpoint_group in portainer_endpoint_group_list['json'] %}
   {%- set ns.portainer_endpoint_groups = ns.portainer_endpoint_groups | combine({portainer_endpoint_group['Id']:portainer_endpoint_group['Name']}) %}
 {% endfor %}
-  {|>{\nohyphen}Sl|Sc|Tl|Sl|Sl|}
+  {|>{\nohyphen}Sl|Sc|Tl|Sl|Sp{3em}|}
 {% import 'caption.ji2' as caption %}
 {{ caption.format(latex_portainer_endpoint) }} \\
     \hline
