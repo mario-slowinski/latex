@@ -1,4 +1,21 @@
 ---
+- name: "Import user_list task from portainer role."
+  tags:
+    - latex.portainer.user
+    - latex.portainer
+  ansible.builtin.import_role:
+    name: portainer
+    tasks_from: user_list.yaml
+
+- name: "Import endpoint_group_list task from portainer role."
+  tags:
+    - latex.portainer.endpoint_group
+    - latex.portainer.endpoint
+    - latex.portainer
+  ansible.builtin.import_role:
+    name: portainer
+    tasks_from: endpoint_group_list.yaml
+
 - name: "Import tag_list task from portainer role."
   tags:
     - latex.portainer.tag
@@ -16,6 +33,51 @@
     name: portainer
     tasks_from: endpoint_list.yaml
 
+- name: debug
+  tags:
+    - latex.portainer.user
+  debug:
+    msg: "{{ portainer_user_list['json'] }}"
+  run_once: true
+
+- name: "Save portainer user info in {{ latex_portainer_user['path'] | default(latex_portainer_user['caption']+'.tex') }}"
+  tags:
+    - latex.portainer.user
+  ansible.builtin.blockinfile:
+    path: "{{ latex_portainer_user['path'] | default(latex_portainer_user['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_portainer_user['marker'] | default(latex_portainer_user['caption']) }}"
+    block: "{{ lookup('template','portainer/user.ji2') }}"
+  run_once: true
+  delegate_to: localhost
+
+- name: "Save portainer tag info in {{ latex_portainer_tag['path'] | default(latex_portainer_tag['caption']+'.tex') }}"
+  tags:
+    - latex.portainer.tag
+  ansible.builtin.blockinfile:
+    path: "{{ latex_portainer_tag['path'] | default(latex_portainer_tag['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_portainer_tag['marker'] | default(latex_portainer_tag['caption']) }}"
+    block: "{{ lookup('template','portainer/tag.ji2') }}"
+  run_once: true
+  delegate_to: localhost
+
+- name: "Save portainer endpoint_group info in {{ latex_portainer_endpoint_group['path'] | default(latex_portainer_endpoint_group['caption']+'.tex') }}"
+  tags:
+    - latex.portainer.endpoint_group
+  ansible.builtin.blockinfile:
+    path: "{{ latex_portainer_endpoint_group['path'] | default(latex_portainer_endpoint_group['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_portainer_endpoint_group['marker'] | default(latex_portainer_endpoint_group['caption']) }}"
+    block: "{{ lookup('template','portainer/endpoint_group.ji2') }}"
+  run_once: true
+  delegate_to: localhost
 
 - name: "Save portainer endpoint info in {{ latex_portainer_endpoint['path'] | default(latex_portainer_endpoint['caption']+'.tex') }}"
   tags:
@@ -25,7 +87,7 @@
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_portainer_endpoint['marker'] | default(latex_portainer_endpoint['caption']) }}"
+    marker: "{mark}{longtable} % {{ latex_portainer_endpoint['marker'] | default(latex_portainer_endpoint['caption']) }}"
     block: "{{ lookup('template','portainer/endpoint.ji2') }}"
   run_once: true
   delegate_to: localhost
