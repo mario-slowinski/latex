@@ -1,0 +1,11 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_portainer_tag) }}
+  \begin{tabularx}{\textwidth}{|SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{name} \\
+
+{% for tag in portainer_tag_list['json'] | sort(attribute='Name') %}
+    \hline {{ tag['Name'] }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}
