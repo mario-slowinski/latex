@@ -1,0 +1,13 @@
+{% set role = [ "", "administrator", "team member" ] %}
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_portainer_user) }}
+  \begin{tabularx}{\textwidth}{|SX|Sl|}
+    \hline
+    \multicolumn{1}{|Hc|}{name} &
+    \multicolumn{1}{Hc|}{role} \\
+
+{% for user in portainer_user_list['json'] | sort(attribute='Username') %}
+    \hline {{ user['Username'] }} & role[user['Role']] \\
+{% endfor %}
+    \hline
+  \end{tabularx}
