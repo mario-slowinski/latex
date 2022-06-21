@@ -12,7 +12,7 @@
       {{ "\path{"  }}{{ filesystem['dev'] }}} &
       {{ "\path{" }}{{ filesystem['path'] }}} &
       {{ filesystem['fstype'] }} &
-      {{ filesystem['opts'] | join(',') | regex_replace('_','\_') | regex_replace('=(/.+),','=\\\path{\\1},') }} \\
+      {{ filesystem['opts'] | join(',') | regex_replace('_','\_') | regex_replace('=(/.+?),','=\\\path{\\1},') }} \\
 {% endfor %}
     \hline
   \end{tabularx}
