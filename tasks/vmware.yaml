@@ -40,15 +40,15 @@
   run_once: true
   connection: "{{ conn | default('local') }}"
 
-- name: "Save VMware vswitch info in {{ latex_vmware_vswitch['path'] | default(latex_vmware_vswitch['caption']+'.tex') }}"
-  tags: latex.vmware.vswitch
+- name: "Save VMware adapter info in {{ latex_vmware_adapter['path'] | default(latex_vmware_adapter['caption']+'.tex') }}"
+  tags: latex.vmware.adapter
   ansible.builtin.blockinfile:
-    path: "{{ latex_vmware_vswitch['path'] | default(latex_vmware_vswitch['caption']+'.tex') }}"
+    path: "{{ latex_vmware_adapter['path'] | default(latex_vmware_adapter['caption']+'.tex') }}"
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_vmware_vswitch['marker'] | default(latex_vmware_vswitch['caption']) }}"
-    block: "{{ lookup('template','vmware/vswitch.ji2') }}"
+    marker: "{mark}{table} % {{ latex_vmware_adapter['marker'] | default(latex_vmware_adapter['caption']) }}"
+    block: "{{ lookup('template','vmware/adapter.ji2') }}"
   run_once: true
   connection: "{{ conn | default('local') }}"
 
