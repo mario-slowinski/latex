@@ -32,3 +32,51 @@ latex_system_logrotate:
 
 latex_system_sshd:
   caption: vmware-system-sshd
+
+
+latex_ceph_metadata_mon:
+  caption: ceph-metadata-mon
+
+latex_ceph_metadata_osd:
+  caption: ceph-metadata-osd
+
+latex_ceph_metadata_mds:
+  caption: ceph-metadata-mds
+
+latex_ceph_metadata_mgr:
+  caption: ceph-metadata-mgr
+
+latex_ceph_dump_config:
+  caption: ceph-dump-config
+
+latex_ceph_dump_osd:
+  caption: ceph-dump-osd
+
+latex_ceph_dump_pool:
+  caption: ceph-dump-pool
+
+
+latex_docker_stack:
+  caption: docker-stack
+
+latex_docker_stack_task:
+  caption: docker-stack-task
+
+latex_docker_service:
+  caption: docker-service
+
+latex_docker_host:
+  caption: docker-host
+
+
+latex_portainer_user:
+  caption: portainer-user
+
+latex_portainer_tag:
+  caption: portainer-tag
+
+latex_portainer_endpoint:
+  caption: portainer-endpoint
+
+latex_portainer_endpoint_group:
+  caption: portainer-endpoint_group
