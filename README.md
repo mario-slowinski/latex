@@ -69,6 +69,14 @@ Role Variables
     latex_ceph_dump_config:
       caption: ceph-dump-config
 
+    latex_ceph_dump_daemon:
+      caption: ceph-dump-daemon
+      daemons:
+        - alertmanager
+        - node-exporter
+        - prometheus
+        - grafana
+
     latex_ceph_dump_osd:
       caption: ceph-dump-osd
 
