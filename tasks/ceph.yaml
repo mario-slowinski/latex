@@ -2,6 +2,7 @@
 - name: "Include config dump task from ceph role."
   tags:
     - latex.ceph.dump.config
+    - latex.ceph.dump.daemon
     - latex.ceph.dump.pool
     - latex.ceph.dump.osd
     - latex.ceph.dump
@@ -95,6 +96,21 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_config['marker'] | default(latex_ceph_dump_config['caption']) }}"
     block: "{{ lookup('template','ceph/dump/config.ji2') }}"
+  run_once: true
+  connection: local
+
+- name: "Save ceph daemon dump in {{ latex_ceph_dump_daemon['path'] | default(latex_ceph_dump_daemon['caption']+'.tex') }}"
+  tags:
+    - latex.ceph.dump.daemon
+    - latex.ceph.dump
+    - latex.ceph
+  ansible.builtin.blockinfile:
+    path: "{{ latex_ceph_dump_daemon['path'] | default(latex_ceph_dump_daemon['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_ceph_dump_daemon['marker'] | default(latex_ceph_dump_daemon['caption']) }}"
+    block: "{{ lookup('template','ceph/dump/daemon.ji2') }}"
   run_once: true
   connection: local
 
