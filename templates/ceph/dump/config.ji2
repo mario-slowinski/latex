@@ -8,9 +8,6 @@
       fsid &
       {{ ceph_dump_fsid['stdout'] }} \\
     \hline
-      image &
-      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','container_image') | map(attribute='value') | first }} \\
-    \hline
       public network &
       {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','public_network') | map(attribute='value') | first }} \\
     \hline
