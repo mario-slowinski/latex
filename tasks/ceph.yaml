@@ -1,8 +1,10 @@
 ---
 - name: "Include config dump task from ceph role."
   tags:
-    - latex.ceph.dump.config
+    - latex.ceph.dump.daemon.image
+    - latex.ceph.dump.daemon.placement
     - latex.ceph.dump.daemon
+    - latex.ceph.dump.config
     - latex.ceph.dump.pool
     - latex.ceph.dump.osd
     - latex.ceph.dump
@@ -99,18 +101,35 @@
   run_once: true
   connection: local
 
-- name: "Save ceph daemon dump in {{ latex_ceph_dump_daemon['path'] | default(latex_ceph_dump_daemon['caption']+'.tex') }}"
+- name: "Save ceph daemon image dump in {{ latex_ceph_dump_daemon_image['path'] | default(latex_ceph_dump_daemon_image['caption']+'.tex') }}"
   tags:
+    - latex.ceph.dump.daemon.image
     - latex.ceph.dump.daemon
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_daemon['path'] | default(latex_ceph_dump_daemon['caption']+'.tex') }}"
+    path: "{{ latex_ceph_dump_daemon_image['path'] | default(latex_ceph_dump_daemon_image['caption']+'.tex') }}"
     create: true
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_daemon['marker'] | default(latex_ceph_dump_daemon['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/daemon.ji2') }}"
+    marker: "{mark}{table} % {{ latex_ceph_dump_daemon_image['marker'] | default(latex_ceph_dump_daemon_image['caption']) }}"
+    block: "{{ lookup('template','ceph/dump/daemon-image.ji2') }}"
+  run_once: true
+  connection: local
+
+- name: "Save ceph daemon placement dump in {{ latex_ceph_dump_daemon_placement['path'] | default(latex_ceph_dump_daemon_placement['caption']+'.tex') }}"
+  tags:
+    - latex.ceph.dump.daemon.placement
+    - latex.ceph.dump.daemon
+    - latex.ceph.dump
+    - latex.ceph
+  ansible.builtin.blockinfile:
+    path: "{{ latex_ceph_dump_daemon_placement['path'] | default(latex_ceph_dump_daemon_placement['caption']+'.tex') }}"
+    create: true
+    marker_begin: '\\begin'
+    marker_end: '\\end'
+    marker: "{mark}{table} % {{ latex_ceph_dump_daemon_placement['marker'] | default(latex_ceph_dump_daemon_placement['caption']) }}"
+    block: "{{ lookup('template','ceph/dump/daemon-placement.ji2') }}"
   run_once: true
   connection: local
 

@@ -1,0 +1,27 @@
+{% import 'caption.ji2' as caption %}
+{{ caption.format(latex_ceph_dump_daemon_placement) }}
+  \begin{tabularx}{\textwidth}{|Sl|Sc|SX|}
+    \hline
+    \multicolumn{1}{|Hc|}{type} &
+    \multicolumn{1}{Hc|}{count} &
+    \multicolumn{1}{Hc|}{placement} \\
+
+{% for daemon in ceph_dump_daemon_ls['stdout'] | from_json %}
+    \hline {{ "" }}
+      {{- daemon['service_type'] }}{{ " & " }}
+      {{- daemon['placement']['count'] | default('') }}{{ " & " }}
+      {%- if daemon['placement']['label'] is defined -%}
+        {%- set placement = "label: " + daemon['placement']['label'] -%}
+      {%- elif daemon['placement']['host_pattern'] is defined -%}
+        {%- set placement = "pattern: " + daemon['placement']['host_pattern'] -%}
+      {%- elif daemon['placement']['hosts'] is defined -%}
+        {%- set placement = "hosts: " + daemon['placement']['hosts'] | join(',') -%}
+      {%- elif daemon['placement']['count'] is not defined -%}
+        {%- set placement = "unmanaged" -%}
+      {%- else -%}
+        {%- set placement = "" -%}
+      {%- endif %}
+      {{- placement }} \\
+{% endfor %}
+    \hline
+  \end{tabularx}

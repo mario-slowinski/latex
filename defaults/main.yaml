@@ -49,13 +49,11 @@ latex_ceph_metadata_mgr:
 latex_ceph_dump_config:
   caption: ceph-dump-config
 
-latex_ceph_dump_daemon:
-  caption: ceph-dump-daemon
-  daemons:
-    - alertmanager
-    - node-exporter
-    - prometheus
-    - grafana
+latex_ceph_dump_daemon_image:
+  caption: ceph-dump-daemon-image
+
+latex_ceph_dump_daemon_placement:
+  caption: ceph-dump-daemon-placement
 
 latex_ceph_dump_osd:
   caption: ceph-dump-osd
