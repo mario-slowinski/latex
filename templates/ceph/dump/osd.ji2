@@ -14,9 +14,9 @@
       {{- osd['device_class'] }}{{ " & " }}
       {{- osd['crush_weight'] }}{{ " & " }}
       {{- osd['reweight'] }}{{ " & " }}
-      {{- '%d' | format(osd['kb']/1024/1024) }} \\
+      {{- '%d' | format(osd['kb']/1000000) }} \\
 {% endfor %}
     \hline {{ "\multicolumn{4}{|Sr|}{\\textit{Total:}} & " }}
-      {{- "\\textbf{" }}{{- '%d' | format(ceph_dump_osd['stdout'] | from_json | json_query('summary.total_kb')/1024/1024) }}{{ "}" }} \\
+      {{- "\\textbf{" }}{{- '%d' | format(ceph_dump_osd['stdout'] | from_json | json_query('summary.total_kb')/1000000) }}{{ "}" }} \\
     \hline
   \end{tabularx}
