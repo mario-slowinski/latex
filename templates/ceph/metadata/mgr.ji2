@@ -5,7 +5,7 @@
     \multicolumn{1}{|Hc|}{host} &
     \multicolumn{1}{Hc|}{address} \\
 
-{% for mgr in ceph_metadata_mgr['stdout'] | from_json %}
+{% for mgr in ceph_metadata_mgr['stdout'] | from_json | sort(attribute='hostname') %}
     \hline
       {{ mgr['hostname'] }} &
       {{ mgr['addrs'] | regex_replace('/.*') }} \\
