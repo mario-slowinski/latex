@@ -4,4 +4,7 @@
   {%- set short = '[' + _object['short'] + ']' %}
 {% endif %}
   \caption{{ short }}{{'{'}}{{ _object['caption'] }}{{ '}'}}
+{%- if _object['label'] is defined %}{{- "" }}
+  \label{{'{'}}{{ _object['label'] }}{{'}'}}
+{%- endif %}
 {%- endmacro %}
