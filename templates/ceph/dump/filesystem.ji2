@@ -3,8 +3,8 @@
   \begin{tabularx}{\textwidth}{|SX|Sl|Sl|Sr|Sr|}
     \hline
     \multicolumn{1}{|Hc|}{name} &
-    \multicolumn{1}{Hc|}{metadata pool} &
-    \multicolumn{1}{Hc|}{data pools} &
+    \multicolumn{1}{Hc|}{metadata pool id} &
+    \multicolumn{1}{Hc|}{data pools ids} &
     \multicolumn{1}{Hc|}{max mds} &
     \multicolumn{1}{Hc|}{standby mds} \\
 
