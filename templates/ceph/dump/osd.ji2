@@ -8,7 +8,7 @@
     \multicolumn{1}{Hc|}{reweight} &
     \multicolumn{1}{Hc|}{size [GiB]} \\
 
-{% for osd in ceph_dump_osd['stdout'] | from_json | json_query('nodes') %}
+{% for osd in ceph_dump_osd['stdout'] | from_json | json_query('nodes') | sort(attribute='id') %}
     \hline {{ "" }}
       {{- osd['id'] }}{{ " & " }}
       {{- osd['device_class'] }}{{ " & " }}
