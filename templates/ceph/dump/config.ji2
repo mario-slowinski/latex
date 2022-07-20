@@ -12,6 +12,6 @@
       {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','public_network') | map(attribute='value') | first }} \\
     \hline
       cluster network &
-      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','cluster_network') | map(attribute='value') | first }} \\
+      {{ ceph_dump_config['stdout'] | from_json | selectattr('section','eq','global') | selectattr('name','eq','cluster_network') | map(attribute='value') | first | default('') }} \\
     \hline
   \end{tabularx}
