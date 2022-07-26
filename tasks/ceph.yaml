@@ -27,7 +27,7 @@
     tasks_from: metadata.yaml
 
 
-- name: "Save ceph mon info in {{ latex_ceph_metadata_mon['path'] | default(latex_ceph_metadata_mon['caption']+'.tex') }}"
+- name: "Save latex ceph medatada mon."
   tags:
     - latex.ceph.metadata.mon
     - latex.ceph.metadata
@@ -39,10 +39,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_metadata_mon['marker'] | default(latex_ceph_metadata_mon['caption']) }}"
     block: "{{ lookup('template','ceph/metadata/mon.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph osd info in {{ latex_ceph_metadata_osd['path'] | default(latex_ceph_metadata_osd['caption']+'.tex') }}"
+- name: "Save latex ceph medatada osd."
   tags:
     - latex.ceph.metadata.osd
     - latex.ceph.metadata
@@ -54,10 +53,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_metadata_osd['marker'] | default(latex_ceph_metadata_osd['caption']) }}"
     block: "{{ lookup('template','ceph/metadata/osd.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph mds info in {{ latex_ceph_metadata_mds['path'] | default(latex_ceph_metadata_mds['caption']+'.tex') }}"
+- name: "Save latex ceph medatada mds."
   tags:
     - latex.ceph.metadata.mds
     - latex.ceph.metadata
@@ -69,10 +67,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_metadata_mds['marker'] | default(latex_ceph_metadata_mds['caption']) }}"
     block: "{{ lookup('template','ceph/metadata/mds.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph mgr info in {{ latex_ceph_metadata_mgr['path'] | default(latex_ceph_metadata_mgr['caption']+'.tex') }}"
+- name: "Save latex ceph medatada mgr."
   tags:
     - latex.ceph.metadata.mgr
     - latex.ceph.metadata
@@ -84,10 +81,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_metadata_mgr['marker'] | default(latex_ceph_metadata_mgr['caption']) }}"
     block: "{{ lookup('template','ceph/metadata/mgr.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph config dump in {{ latex_ceph_dump_config['path'] | default(latex_ceph_dump_config['caption']+'.tex') }}"
+- name: "Save latex ceph dump config."
   tags:
     - latex.ceph.dump.config
     - latex.ceph.dump
@@ -99,10 +95,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_config['marker'] | default(latex_ceph_dump_config['caption']) }}"
     block: "{{ lookup('template','ceph/dump/config.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph daemon image dump in {{ latex_ceph_dump_daemon_image['path'] | default(latex_ceph_dump_daemon_image['caption']+'.tex') }}"
+- name: "Save latex ceph dump daemon image."
   tags:
     - latex.ceph.dump.daemon.image
     - latex.ceph.dump.daemon
@@ -115,10 +110,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_daemon_image['marker'] | default(latex_ceph_dump_daemon_image['caption']) }}"
     block: "{{ lookup('template','ceph/dump/daemon-image.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph daemon placement dump in {{ latex_ceph_dump_daemon_placement['path'] | default(latex_ceph_dump_daemon_placement['caption']+'.tex') }}"
+- name: "Save latex ceph dump daemon placement."
   tags:
     - latex.ceph.dump.daemon.placement
     - latex.ceph.dump.daemon
@@ -131,10 +125,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_daemon_placement['marker'] | default(latex_ceph_dump_daemon_placement['caption']) }}"
     block: "{{ lookup('template','ceph/dump/daemon-placement.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph osd dump in {{ latex_ceph_dump_osd['path'] | default(latex_ceph_dump_osd['caption']+'.tex') }}"
+- name: "Save latex ceph dump osd."
   tags:
     - latex.ceph.dump.osd
     - latex.ceph.dump
@@ -146,10 +139,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_osd['marker'] | default(latex_ceph_dump_osd['caption']) }}"
     block: "{{ lookup('template','ceph/dump/osd.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph pool dump in {{ latex_ceph_dump_pool['path'] | default(latex_ceph_dump_pool['caption']+'.tex') }}"
+- name: "Save latex ceph dump pool."
   tags:
     - latex.ceph.dump.pool
     - latex.ceph.dump
@@ -161,10 +153,9 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_pool['marker'] | default(latex_ceph_dump_pool['caption']) }}"
     block: "{{ lookup('template','ceph/dump/pool.ji2') }}"
-  run_once: true
   connection: local
 
-- name: "Save ceph filesystem dump in {{ latex_ceph_dump_filesystem['path'] | default(latex_ceph_dump_filesystem['caption']+'.tex') }}"
+- name: "Save latex ceph dump filesystem."
   tags:
     - latex.ceph.dump.filesystem
     - latex.ceph.dump
@@ -176,5 +167,4 @@
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_ceph_dump_filesystem['marker'] | default(latex_ceph_dump_filesystem['caption']) }}"
     block: "{{ lookup('template','ceph/dump/filesystem.ji2') }}"
-  run_once: true
   connection: local
