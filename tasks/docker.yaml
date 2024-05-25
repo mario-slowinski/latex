@@ -28,40 +28,60 @@
     - latex.docker.service
   community.docker.docker_swarm_service_info:
     name: "{{ item }}"
-  loop: "{{ docker_stack_task['results'] | map(attribute='results') | flatten | map(attribute='Name')  | map('regex_replace','\\.\\w+') | unique }}"
+  loop: >-
+    {{ docker_stack_task['results']
+    | map(attribute='results')
+    | flatten
+    | map(attribute='Name')
+    | map('regex_replace', '\\.\\w+') | unique }}
   connection: ssh
   register: docker_service
 
 
-- name: "Save docker host info in {{ latex_docker_host['path'] | default(latex_docker_host['caption']+'.tex') }}"
+- name: >-
+    Save docker host info in {{ latex_docker_host['path']
+    | default(latex_docker_host['caption'] + '.tex') }}
   tags: latex.docker.host
   ansible.builtin.blockinfile:
-    path: "{{ latex_docker_host['path'] | default(latex_docker_host['caption']+'.tex') }}"
+    path: >-
+      {{ latex_docker_host['path']
+      | default(latex_docker_host['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_docker_host['caption'] }}"
-    block: "{{ lookup('template','docker/host.ji2') }}"
+    block: "{{ lookup('template', 'docker/host.ji2') }}"
   run_once: true
 
-- name: "Save docker stack info in {{ latex_docker_stack['path'] | default(latex_docker_stack['caption']+'.tex') }}"
+- name: >-
+    Save docker stack info in {{ latex_docker_stack['path']
+    | default(latex_docker_stack['caption'] + '.tex') }}
   tags: latex.docker.stack
   ansible.builtin.blockinfile:
-    path: "{{ latex_docker_stack['path'] | default(latex_docker_stack['caption']+'.tex') }}"
+    path: >-
+      {{ latex_docker_stack['path']
+      | default(latex_docker_stack['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_docker_stack['caption'] }}"
-    block: "{{ lookup('template','docker/stack.ji2') }}"
+    block: "{{ lookup('template', 'docker/stack.ji2') }}"
   run_once: true
 
-- name: "Save docker service info in {{ latex_docker_service['path'] | default(latex_docker_service['caption']+'.tex') }}"
+- name: >-
+    Save docker service info in {{ latex_docker_service['path']
+    | default(latex_docker_service['caption'] + '.tex') }}
   tags: latex.docker.service
   ansible.builtin.blockinfile:
-    path: "{{ latex_docker_service['path'] | default(latex_docker_service['caption']+'.tex') }}"
+    path: >-
+      {{ latex_docker_service['path']
+      | default(latex_docker_service['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
     marker: "{mark}{table} % {{ latex_docker_service['caption'] }}"
-    block: "{{ lookup('template','docker/service.ji2') }}"
+    block: "{{ lookup('template', 'docker/service.ji2') }}"
   run_once: true

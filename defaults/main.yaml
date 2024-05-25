@@ -1,4 +1,7 @@
 ---
+latex_file:
+  mode: '0o644'
+
 latex_vmware_cluster:
   caption: vmware-cluster
 

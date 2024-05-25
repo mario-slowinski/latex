@@ -33,12 +33,17 @@
     - latex.ceph.metadata
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_metadata_mon['path'] | default(latex_ceph_metadata_mon['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_metadata_mon['path']
+      | default(latex_ceph_metadata_mon['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_metadata_mon['marker'] | default(latex_ceph_metadata_mon['caption']) }}"
-    block: "{{ lookup('template','ceph/metadata/mon.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_metadata_mon['marker']
+      | default(latex_ceph_metadata_mon['caption']) }}
+    block: "{{ lookup('template', 'ceph/metadata/mon.ji2') }}"
   connection: local
 
 - name: "Save latex ceph medatada osd."
@@ -47,12 +52,17 @@
     - latex.ceph.metadata
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_metadata_osd['path'] | default(latex_ceph_metadata_osd['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_metadata_osd['path']
+      | default(latex_ceph_metadata_osd['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_metadata_osd['marker'] | default(latex_ceph_metadata_osd['caption']) }}"
-    block: "{{ lookup('template','ceph/metadata/osd.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_metadata_osd['marker']
+      | default(latex_ceph_metadata_osd['caption']) }}
+    block: "{{ lookup('template', 'ceph/metadata/osd.ji2') }}"
   connection: local
 
 - name: "Save latex ceph medatada mds."
@@ -61,12 +71,17 @@
     - latex.ceph.metadata
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_metadata_mds['path'] | default(latex_ceph_metadata_mds['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_metadata_mds['path']
+      | default(latex_ceph_metadata_mds['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_metadata_mds['marker'] | default(latex_ceph_metadata_mds['caption']) }}"
-    block: "{{ lookup('template','ceph/metadata/mds.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_metadata_mds['marker']
+      | default(latex_ceph_metadata_mds['caption']) }}
+    block: "{{ lookup('template', 'ceph/metadata/mds.ji2') }}"
   connection: local
 
 - name: "Save latex ceph medatada mgr."
@@ -75,12 +90,17 @@
     - latex.ceph.metadata
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_metadata_mgr['path'] | default(latex_ceph_metadata_mgr['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_metadata_mgr['path']
+      | default(latex_ceph_metadata_mgr['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_metadata_mgr['marker'] | default(latex_ceph_metadata_mgr['caption']) }}"
-    block: "{{ lookup('template','ceph/metadata/mgr.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_metadata_mgr['marker']
+      | default(latex_ceph_metadata_mgr['caption']) }}
+    block: "{{ lookup('template', 'ceph/metadata/mgr.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump config."
@@ -89,12 +109,17 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_config['path'] | default(latex_ceph_dump_config['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_config['path']
+      | default(latex_ceph_dump_config['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_config['marker'] | default(latex_ceph_dump_config['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/config.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_config['marker']
+      | default(latex_ceph_dump_config['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/config.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump daemon image."
@@ -104,12 +129,17 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_daemon_image['path'] | default(latex_ceph_dump_daemon_image['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_daemon_image['path']
+      | default(latex_ceph_dump_daemon_image['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_daemon_image['marker'] | default(latex_ceph_dump_daemon_image['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/daemon-image.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_daemon_image['marker']
+      | default(latex_ceph_dump_daemon_image['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/daemon-image.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump daemon placement."
@@ -119,12 +149,17 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_daemon_placement['path'] | default(latex_ceph_dump_daemon_placement['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_daemon_placement['path']
+      | default(latex_ceph_dump_daemon_placement['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_daemon_placement['marker'] | default(latex_ceph_dump_daemon_placement['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/daemon-placement.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_daemon_placement['marker']
+      | default(latex_ceph_dump_daemon_placement['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/daemon-placement.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump osd."
@@ -133,12 +168,17 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_osd['path'] | default(latex_ceph_dump_osd['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_osd['path']
+      | default(latex_ceph_dump_osd['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_osd['marker'] | default(latex_ceph_dump_osd['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/osd.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_osd['marker']
+      | default(latex_ceph_dump_osd['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/osd.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump pool."
@@ -147,12 +187,17 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_pool['path'] | default(latex_ceph_dump_pool['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_pool['path']
+      | default(latex_ceph_dump_pool['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_pool['marker'] | default(latex_ceph_dump_pool['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/pool.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_pool['marker']
+      | default(latex_ceph_dump_pool['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/pool.ji2') }}"
   connection: local
 
 - name: "Save latex ceph dump filesystem."
@@ -161,10 +206,15 @@
     - latex.ceph.dump
     - latex.ceph
   ansible.builtin.blockinfile:
-    path: "{{ latex_ceph_dump_filesystem['path'] | default(latex_ceph_dump_filesystem['caption']+'.tex') }}"
+    path: >-
+      {{ latex_ceph_dump_filesystem['path']
+      | default(latex_ceph_dump_filesystem['caption'] + '.tex') }}
     create: true
+    mode: "{{ latex_file['mode'] }}"
     marker_begin: '\\begin'
     marker_end: '\\end'
-    marker: "{mark}{table} % {{ latex_ceph_dump_filesystem['marker'] | default(latex_ceph_dump_filesystem['caption']) }}"
-    block: "{{ lookup('template','ceph/dump/filesystem.ji2') }}"
+    marker: >-
+      {mark}{table} % {{ latex_ceph_dump_filesystem['marker']
+      | default(latex_ceph_dump_filesystem['caption']) }}
+    block: "{{ lookup('template', 'ceph/dump/filesystem.ji2') }}"
   connection: local
